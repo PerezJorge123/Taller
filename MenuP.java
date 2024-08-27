@@ -6,7 +6,7 @@ public class MenuP {
         int x, y;
         int opt;
         Scanner sc = new Scanner(System.in);
-        System.out.println("ingrese la cantidad de filas que desea");
+        System.out.println("Ingrese la cantidad de filas que desea");
         x = sc.nextInt();
         System.out.println("ingrese la cantidad de columnas que desea");
         y = sc.nextInt();
