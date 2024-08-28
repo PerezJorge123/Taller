@@ -4,13 +4,13 @@
 //en una lista de 30 productos buscar específico por su nombre.
 import java.util.Scanner;
 
-public class Taller {
+public class Punto1 {
     String nombre;
     double precio;
     int cantidad;
     Scanner sc = new Scanner(System.in);
 
-    public Taller () {
+    public Punto1 () {
         nombre = "";
         precio = 0.0;
         cantidad = 0;
@@ -40,12 +40,23 @@ public class Taller {
         this.cantidad = cantidad;
     }
 
-    
-    public Taller [][] llenarMo (int x, int y) {
-        Taller [][] mo = new Taller[x][y];
+    public void EjecutarPunto1(){
+        int x, y;
+        System.out.println("Ingrese la cantidad de filas que desea");
+        x = sc.nextInt();
+        System.out.println("ingrese la cantidad de columnas que desea");
+        y = sc.nextInt();
+        Punto1[][] punto1 = new Punto1[x][y];
+        Punto1 p1 = new Punto1();
+        punto1 = p1.llenarMo(x, y);
+        p1.buscarProducto(punto1);
+    }
+
+    public Punto1 [][] llenarMo (int x, int y) {
+        Punto1 [][] mo = new Punto1[x][y];
         for (int i = 0; i < mo.length; i++) {
             for (int j = 0; j < mo[i].length; j++) {
-                Taller z = new Taller();
+                Punto1 z = new Punto1();
                 System.out.println("ingrese el nombre del producto");
                 z.setNombre(sc.next());
                 System.out.println("ingrese el precio del producto");
@@ -57,7 +68,7 @@ public class Taller {
         }
         return mo;
     }
-    public void buscarProducto (Taller [][] mo) {
+    public void buscarProducto (Punto1 [][] mo) {
         String producto = "";
         System.out.println("ingrese el nombre del producto a buscar");
         producto = sc.next();
