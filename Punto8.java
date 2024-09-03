@@ -27,6 +27,16 @@ public class Punto8 {
         this.categoría = categoría;
     }
 
+    public void EjecutarPunto8() {
+        int x = 0;
+        System.out.println("ingrese la cantidad de productos que desea");
+        x = sc.nextInt();
+        Punto8 [] vector = new Punto8[x];
+        Punto8 u = new Punto8();
+        vector = u.llenarVector(x);
+        u.leerVector(vector);
+    }
+
     public Punto8 [] llenarVector (int x) {
         Punto8 [] v = new Punto8[x];
         for (int i = 0; i < v.length; i++) {
@@ -37,6 +47,7 @@ public class Punto8 {
             z.setPeso(sc.nextDouble());
             System.out.println("ingrese la categoria del producto");
             z.setCategoría(sc.next());
+            v[i] = z;
         }
         return v;
     }
@@ -48,7 +59,7 @@ public class Punto8 {
             String categoria = v[i].getCategoría();
             boolean encontrado = false;
 
-            for (int j = 0; j < b.length; j++) {
+            for (int j = 0; j < contCategoria; j++) {
                 if (b[j].equals(categoria)) {
                     encontrado = true;
                     break;
@@ -59,99 +70,31 @@ public class Punto8 {
                 contCategoria ++;
             }
         }
-        for (int i = 0; i < v.length; i++) { // itera sobre cada fila
-            Punto8 [] vector = new Punto8[v.length];
-            int indice = 0;
+
+        Punto8[][] matriz = new Punto8[contCategoria][v.length];
+        int[] vector = new int[contCategoria];
+
+        for (int i = 0; i < v.length; i++) {
             String categoria = v[i].getCategoría();
-
-            for (int j = 0; j < v.length; j++) { 
-                if (v[j].getCategoría().equals(categoria)) { // Comparar categorías
-                    vector[indice] = v[j]; // Agregar al nuevo vector
-                    indice++; // Incrementar el índice del nuevo vector
+            int categoriaIndice = -1;
+            for (int j = 0; j < contCategoria; j++) {
+                if (b[j].equals(categoria)) {
+                    categoriaIndice = j;
+                    break;
                 }
             }
-            Punto8 [][] matriz = new Punto8[contCategoria][];
-            for (int k = 0; k < matriz.length; k++) {
-                for (int l = 0; l < matriz[k].length; l++) {
-                    matriz [k][l] = vector[l];
-                }
-            }
-        }
-    }
-    public Punto8 [] categoriaA (Punto8 [] v) {
-        int conteo = 0;
-        for (int i = 0; i < v.length; i++) {
-            if (v[i].getCategoría().equals("A")) {
-                conteo += 1;
+
+            if (categoriaIndice != -1) {
+                matriz[categoriaIndice][vector[categoriaIndice]] = v[i];
+                vector[categoriaIndice]++;
             }
         }
 
-        Punto8[] categoriaA = new Punto8[conteo];
-        int index = 0;
-
-        for (int i = 0; i < v.length; i++) {
-            if (v[i].getCategoría().equals("A")) {
-                categoriaA[index] = v[i];
-                index ++;
-            }
-        }
-        return categoriaA;
-    }
-
-    public Punto8 [] categoriaB (Punto8 [] v) {
-        int conteo = 0;
-        for (int i = 0; i < v.length; i++) {
-            if (v[i].getCategoría().equals("B")) {
-                conteo += 1;
-            }
-        }
-
-        Punto8[] categoriaB = new Punto8[conteo];
-        int index = 0;
-
-        for (int i = 0; i < v.length; i++) {
-            if (v[i].getCategoría().equals("B")) {
-                categoriaB[index] = v[i];
-                index ++;
-            }
-        }
-        return categoriaB;
-    }
-
-    public Punto8 [] categoriaC (Punto8 [] v) {
-        int conteo = 0;
-        for (int i = 0; i < v.length; i++) {
-            if (v[i].getCategoría().equals("C")) {
-                conteo += 1;
-            }
-        }
-
-        Punto8[] categoriaC = new Punto8[conteo];
-        int index = 0;
-
-        for (int i = 0; i < v.length; i++) {
-            if (v[i].getCategoría().equals("C")) {
-                categoriaC[index] = v[i];
-                index ++;
-            }
-        }
-        return categoriaC;
-    }
-
-    public Punto8 [][] llenarMatriz (Punto8 [] v) {
-        Punto8[] categoriaA = categoriaA(v);
-        Punto8[] categoriaB = categoriaB(v);
-        Punto8[] categoriaC = categoriaC(v);
-        int index = 0;
-        Punto8 [][] matriz = new Punto8[3][10];
         for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
-                if (index < categoriaA.length) {
-                    matriz[i][j] = categoriaA[index];
-                    index ++;
-                }
+            System.out.println("Categoría " + b[i] + ":");
+            for (int j = 0; j < vector[i]; j++) {
+                System.out.println(" - " + matriz[i][j].getNombre());
             }
         }
-        return matriz;
     }
 }
